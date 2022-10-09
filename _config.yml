@@ -25,7 +25,7 @@ github_username:  ethahtz
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-experiment
+remote_theme:: anxhe/jekyll-theme-experiment
 plugins:
   - jekyll-feed
 
