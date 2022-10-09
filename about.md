@@ -1,0 +1,11 @@
+---
+layout: page
+title: About
+permalink: /about/
+---
+
+# INTRODUCTION
+
+Consider the following hypothetical scenario. In a meeting room, there are two men talking to each other. Under scrutiny, you found that they look quite like each other, though one is older than the other. Perhaps they are brothers or close relatives, you thought. It turns out that the older man is a time traveler who traveled back to meet himself: they are one and the same person. Our intuition will find the fact that they are the same person quite disturbing. A working assumption underlies our intuition is that each person exists at only one place at a specific time; and whenever there are two candidates claiming for one identity, it is always the case that one of them is lying, if not both. The working assumption seems to work well in our normal world: if it’s false (that one person can be at more than one place at the same time), an alibi will be of no use. But when time travel is introduced, the working assumption will be shown to no longer hold. 
+
+`(revapp (cons x xs) ys) == (revapp xs (cons x ys))`
