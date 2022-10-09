@@ -4,6 +4,7 @@
 
 layout: home
 title: home
+permalink: /
 ---
 
 Before leaving the US, Eliot had told Emily Hale that he was in love with her. He exchanged letters with her from Oxford during 1914 and 1915, but they did not meet again until 1927. In a letter to Aiken late in December 1914, Eliot, aged 26, wrote: "I am very dependent upon women (I mean female society)." Less than four months later, Thayer introduced Eliot to Vivienne Haigh-Wood, a Cambridge governess. They were married at Hampstead Register Office on 26 June 1915.
