@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source-Modality Monitoring in Vision-Language Models</title>
+<meta property="og:title" content="Source-Modality Monitoring in Vision-Language Models" />
+<meta property="og:description" content="Across 11 VLMs, binding words like 'image' to their referents relies on both symbolic marker tokens and distributional semantic cues — and semantics usually wins." />
+<meta property="og:image" content="static/images/Data_example.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<style>
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight:300;
+	font-size:18px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1100px;
+}
+
+h1 {
+	font-size:32px;
+	font-weight:300;
+}
+
+.disclaimerbox {
+	background-color: #eee;
+	border: 1px solid #eeeeee;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+	padding: 20px;
+}
+
+video.header-vid {
+	height: 140px;
+	border: 1px solid black;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+img.header-img {
+	height: 140px;
+	border: 1px solid black;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+img.rounded {
+	border: 1px solid #eeeeee;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+a:link,a:visited
+{
+	color: #1367a7;
+	text-decoration: none;
+}
+a:hover {
+	color: #208799;
+}
+
+td.dl-link {
+	height: 160px;
+	text-align: center;
+	font-size: 22px;
+}
+
+.layered-paper-big {
+	box-shadow:
+	0px 0px 1px 1px rgba(0,0,0,0.35),
+	5px 5px 0 0px #fff,
+	5px 5px 1px 1px rgba(0,0,0,0.35),
+	10px 10px 0 0px #fff,
+	10px 10px 1px 1px rgba(0,0,0,0.35),
+	15px 15px 0 0px #fff,
+	15px 15px 1px 1px rgba(0,0,0,0.35),
+	20px 20px 0 0px #fff,
+	20px 20px 1px 1px rgba(0,0,0,0.35),
+	25px 25px 0 0px #fff,
+	25px 25px 1px 1px rgba(0,0,0,0.35);
+	margin-left: 10px;
+	margin-right: 45px;
+}
+
+.paper-big {
+	box-shadow:
+	0px 0px 1px 1px rgba(0,0,0,0.35);
+	margin-left: 10px;
+	margin-right: 45px;
+}
+
+.layered-paper {
+	box-shadow:
+	0px 0px 1px 1px rgba(0,0,0,0.35),
+	5px 5px 0 0px #fff,
+	5px 5px 1px 1px rgba(0,0,0,0.35),
+	10px 10px 0 0px #fff,
+	10px 10px 1px 1px rgba(0,0,0,0.35);
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 30px;
+	margin-bottom: 5px;
+}
+
+.vert-cent {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+hr
+{
+	border: 0;
+	height: 1px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+/* --- small additions on top of the template --- */
+
+/* Model switchers, so the per-model appendix figures do not lengthen the page. */
+.tabrow { text-align: center; margin: 14px 0 6px; }
+.tab {
+	font-family: inherit;
+	font-size: 17px;
+	font-weight: 300;
+	color: #1367a7;
+	background: none;
+	border: none;
+	padding: 3px 12px;
+	cursor: pointer;
+}
+.tab:hover { color: #208799; }
+.tab[aria-selected="true"] { color: #222; font-weight: 400; text-decoration: underline; }
+.panel[hidden] { display: none; }
+
+/* Body prose is inset from the figure edges so the two do not run together;
+   captions keep the figure width so they stay attached to their figure. */
+td.desc {
+	text-align: justify;
+	padding-left: 45px;
+	padding-right: 45px;
+}
+td.cap {
+	text-align: justify;
+	font-size: 16px;
+}
+
+/* Extra gap where a figure follows straight after another figure's caption. */
+.figgap { margin-top: 34px; }
+
+/* Figures are clickable for a full-resolution view. */
+a.zoom { display: inline-block; line-height: 0; }
+
+/* The template is a fixed 1100px; keep it readable on phones. */
+@media (max-width: 1140px) {
+	body { width: auto; max-width: 100%; padding: 0 16px; }
+	table { max-width: 100% !important; }
+	img { max-width: 100% !important; height: auto !important; }
+	.layered-paper-big, .paper-big, .layered-paper { margin-right: 10px; }
+	td.desc { padding-left: 0; padding-right: 0; }
+}
+</style>
+</head>
+
+<body>
+<br>
+
+<table align=center width=1000px>
+<tr>
+	<td align=center>
+		<span style="font-size:36px"><b>Source-Modality Monitoring in Vision-Language Models</b></span>
+	</td>
+</tr>
+</table>
+
+<table align=center width=800px>
+	<tr>
+		<td align=center width=260px>
+			<span style="font-size:24px"><a href="https://ethahtz.github.io/">Etha Tianze Hua</a></span><br>
+			<span style="font-size:16px">Brown University</span>
+		</td>
+		<td align=center width=260px>
+			<span style="font-size:24px"><a href="https://tttyuntian.github.io/">Tian Yun</a></span><br>
+			<span style="font-size:16px">Brown University</span>
+		</td>
+		<td align=center width=260px>
+			<span style="font-size:24px"><a href="https://scholar.google.com/citations?user=sFyrSa8AAAAJ&amp;hl=en">Ellie Pavlick</a></span><br>
+			<span style="font-size:16px">Brown University</span>
+		</td>
+	</tr>
+</table>
+
+<table align=center width=800px>
+	<tr>
+		<td align=center>
+			<span style="font-size:20px"><i>Conference on Language Modeling (COLM), 2026</i></span>
+		</td>
+	</tr>
+	<tr>
+		<td align=center style="padding-top:14px">
+			<span style="font-size:22px">
+				<a href="https://arxiv.org/abs/2604.22038">[Paper]</a>&nbsp;&nbsp;
+				<a href="https://github.com/ethahtz/source-modality-monitoring">[Code]</a>
+			</span>
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= ABSTRACT ======================= -->
+<center><h1>Abstract</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			We define and investigate <i>source-modality monitoring</i> &mdash; the ability of multimodal
+			models to track and communicate the input source from which pieces of information originate.
+			We consider source-modality monitoring as an instance of the more general <i>binding problem</i>,
+			and evaluate the extent to which models exploit syntactic versus semantic signals in order to
+			bind words like <i>image</i> in a user-provided prompt to specific components of their input and
+			context (i.e., actual images). Across experiments spanning 11 vision-language models (VLMs)
+			performing target-modality information retrieval tasks, we find that both syntactic and semantic
+			signals play an important role, but that the latter tend to outweigh the former in cases when
+			modalities are highly distinct distributionally. We discuss the implications of these findings
+			for model robustness, and in the context of increasingly multimodal agentic systems.
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= TASK ======================= -->
+<center><h1>The Target-Modality Retrieval Task</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			We show a model an <b>inconsistent</b> image&ndash;caption pair &mdash; the caption describes a
+			different scene than the image &mdash; and ask it to report the content of one specified source.
+			Because the two inputs carry mutually exclusive information, answering correctly requires
+			retrieving from the queried modality rather than simply preferring one modality overall.
+		</td>
+	</tr>
+</table>
+<table align=center width=100%>
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/Data_example.png"><img style="width:460px" src="static/images/Data_example.png" alt="An image of a three-wheeled motorcycle paired with the mismatched caption 'A picture of a person riding a horse'. Asking what the image shows should return the motorcycle; asking what the caption says should return the horse."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			An example task instance. The same input pair yields two different correct answers depending on
+			which source the question requests.
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= PERFORMANCE ======================= -->
+<center><h1>Most VLMs Track Source Modality Well</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			We measure <i>selectivity</i>: how often a model reports the queried modality rather than the
+			other one, on a scale from &minus;1 to 1. Across 11 VLMs and two captioning datasets, almost
+			every model lands well above chance. Models whose input pipeline inserts explicit image wrapper
+			tokens (&#9733;) tend to do better than those without.
+		</td>
+	</tr>
+</table>
+<table align=center width=100%>
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/retrieve_performance_with_p_valid.png"><img style="width:850px" src="static/images/retrieve_performance_with_p_valid.png" alt="Selectivity scores for 11 vision-language models, nearly all above zero, with InstructBLIP-7B negative. A heatmap shows valid-response rates near 1.0."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			<b>Left:</b> aggregated source-modality selectivity across VLMs and datasets; error bars are the
+			standard deviation across datasets. &#9733; marks VLMs with special image wrapper tokens.
+			<b>Right:</b> the rate of valid responses under inconsistent pairs and under single-modality inputs.
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="desc" style="padding-top:14px">
+			<u>VLMs can do this task.</u> The interesting question is <i>how</i> &mdash; are they simply
+			keying off the marker tokens?
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= SYMBOLIC ======================= -->
+<center><h1>Symbolic Binding Is Not the Whole Story</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			First, VLMs are genuinely capable of symbolic binding. If we replace the modality words with
+			content-free labels like <i>Dax</i> and <i>Wug</i>, so that nothing about the label hints at what
+			it refers to, models still retrieve the right span.
+		</td>
+	</tr>
+</table>
+<table align=center width=100%>
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/symb.png"><img style="width:850px" src="static/images/symb.png" alt="Bar charts showing high selectivity for InternVL3-14B, Qwen2.5-VL-32B and Gemma-3-12B under four arbitrary label assignments."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			Performance on the purely symbolic retrieval task across four arbitrary label assignments, where
+			image and caption content are tied to meaningless labels rather than modality names.
+		</td>
+	</tr>
+</table>
+
+<table align=center width=850px>
+	<tr>
+		<td class="desc" style="padding-top:20px">
+			However, symbols are not the only cue available. Image and caption tokens differ markedly in their
+			distributions, which offers an alternative route to modality identity. Already at the embedding
+			layer, before any contextualization, tokens are far more similar to others of their own modality
+			than across modalities, and a linear probe can separate the two perfectly.
+		</td>
+	</tr>
+</table>
+<table align=center width=100% class="figgap">
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/separability_table.jpg"><img style="width:800px" src="static/images/separability_table.jpg" alt="Table reporting within-image cosine similarity 0.325, within-caption 0.101, average within-modality 0.213, cross-modality 0.020, linear probe accuracy 0.999 and a shuffled-label control accuracy of 0.491."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			Distributional separation between visual and textual content-token embeddings, across 16
+			model&ndash;dataset pairs. The shuffled-label control sits at chance, confirming the probe is
+			reading modality rather than probe capacity.
+		</td>
+	</tr>
+</table>
+
+<table align=center width=850px>
+	<tr>
+		<td class="desc" style="padding-top:20px">
+			To separate the symbolic and distributional cues, we systematically perturb the symbolic marker information. If binding were
+			purely symbolic, <i>removing</i> the markers should drop performance to chance and <i>swapping</i>
+			them should reverse the model's answers. Neither happens: selectivity falls but stays clearly
+			positive, and swapped markers do not flip predictions.
+		</td>
+	</tr>
+</table>
+<table align=center width=100% class="figgap">
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/conditions_table.jpg"><img style="width:800px" src="static/images/conditions_table.jpg" alt="Table of the four input conditions: Unperturbed keeps the original image and caption markers; Arbitrary replaces them with Dax and Wug; Remove deletes both markers; Swap exchanges the image and caption markers."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			The four marker conditions. <b>Unperturbed</b> keeps the original modality markers;
+			<b>Arbitrary</b> replaces them with modality-irrelevant labels; <b>Remove</b> removes both markers;
+			<b>Swap</b> exchanges the image and caption markers.
+		</td>
+	</tr>
+</table>
+<table align=center width=100% class="figgap">
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/perturbation.png"><img style="width:1100px" src="static/images/perturbation.png" alt="Bar charts comparing purely symbolic and purely distributional expectations against three models under unperturbed, marker-removal and marker-swap conditions. Observed behavior sits between the two extremes."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			Selectivity when symbolic markers are removed or swapped, shown against the predictions of a
+			purely symbolic and a purely distributional account. Real models sit between the two. The
+			right-hand panels split by target modality, where image retrieval stays robust but caption
+			retrieval collapses.
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="desc" style="padding-top:14px">
+			<u>Source-modality monitoring is not reducible to symbolic markers.</u> Models also read modality
+			off the <i>distributional</i> character of the tokens themselves &mdash; image patches simply do
+			not look like text.
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= MICRO-MODALITIES ======================= -->
+<center><h1>The Word You Use to <i>Refer</i> Matters</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			Querying a piece of text with the label "document" makes the model rely heavily on marker information: it searches for content explicitly marked as a "document." 
+			In contrast, when queried for "text," the markers become largely irrelevant &mdash; the label is already semantically aligned with the textual content itself.
+		</td>
+	</tr>
+</table>
+
+<div class="tabrow" role="tablist" aria-label="Model for micro-modality results">
+	<button class="tab" role="tab" id="mm-qwen-tab"     aria-controls="mm-qwen"     aria-selected="true">Qwen2.5-VL-32B</button>
+	<button class="tab" role="tab" id="mm-gemma-tab"    aria-controls="mm-gemma"    aria-selected="false">Gemma-3-12B</button>
+	<button class="tab" role="tab" id="mm-internvl-tab" aria-controls="mm-internvl" aria-selected="false">InternVL3-14B</button>
+</div>
+
+<div id="mm-qwen" class="panel" role="tabpanel" aria-labelledby="mm-qwen-tab">
+	<table align=center width=100%>
+		<tr><td align=center>
+			<a class="zoom" href="static/images/different_labels.png"><img style="width:1100px" src="static/images/different_labels.png" alt="Selectivity for Qwen2.5-VL-32B across image-caption, image-text and image-document settings under unperturbed, marker-removal and marker-swap conditions."/></a>
+		</td></tr>
+	</table>
+	<table align=center width=850px>
+		<tr><td class="cap">
+			Qwen2.5-VL-32B. Marker perturbations barely dent the image&ndash;text setting, but substantially
+			reduce image&ndash;caption and image&ndash;document.
+		</td></tr>
+	</table>
+</div>
+
+<div id="mm-gemma" class="panel" role="tabpanel" aria-labelledby="mm-gemma-tab" hidden>
+	<table align=center width=100%>
+		<tr><td align=center>
+			<a class="zoom" href="static/images/micromodalities_gemma.png"><img style="width:1100px" src="static/images/micromodalities_gemma.png" alt="The same three source-modality settings for Gemma-3-12B."/></a>
+		</td></tr>
+	</table>
+	<table align=center width=850px>
+		<tr><td class="cap">
+			Gemma-3-12B shows the same pattern.
+		</td></tr>
+	</table>
+</div>
+
+<div id="mm-internvl" class="panel" role="tabpanel" aria-labelledby="mm-internvl-tab" hidden>
+	<table align=center width=100%>
+		<tr><td align=center>
+			<a class="zoom" href="static/images/micromodalities_internvl.png"><img style="width:1100px" src="static/images/micromodalities_internvl.png" alt="The same three source-modality settings for InternVL3-14B."/></a>
+		</td></tr>
+	</table>
+	<table align=center width=850px>
+		<tr><td class="cap">
+			InternVL3-14B shows the same pattern, with a somewhat larger effect in image&ndash;text.
+		</td></tr>
+	</table>
+</div>
+
+<table align=center width=850px>
+	<tr>
+		<td class="desc" style="padding-top:14px">
+			<u>Semantic fit can substitute for explicit markers.</u> Models readily recognize textual content as “text” even when marker cues are perturbed, but rely much more heavily on those cues to identify the same content as a “document.”
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= PROPAGATION ======================= -->
+<center><h1>Markers Write Modality Into the Content Tokens</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			Where does the marker's contribution actually live? We collect hidden states at the content-token
+			positions from a clean run with markers intact, then patch them into a run where the markers have
+			been deleted. Selectivity partially recovers &mdash; so during contextualization the markers write
+			modality identity into the surrounding content representations rather than keeping it local to
+			themselves.
+		</td>
+	</tr>
+</table>
+<table align=center width=100%>
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/freeze_remove_exp.png"><img style="width:850px" src="static/images/freeze_remove_exp.png" alt="Diagram of the freeze-remove condition: hidden activations are collected at content-token positions from a normal run with markers intact, then patched into a second run in which the markers have been removed."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			The freeze-remove intervention. Activations are collected at the content-token positions from a
+			normal run with intact markers (bottom), then patched into a run where the marker tokens have
+			been removed (top).
+		</td>
+	</tr>
+</table>
+<table align=center width=100% class="figgap">
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/freeze-remove.png"><img style="width:1100px" src="static/images/freeze-remove.png" alt="Bar charts showing that the freeze-remove condition recovers much of the selectivity lost by removing markers, especially for caption-target retrieval."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			Selectivity under the freeze-remove intervention, compared with leaving the markers in place
+			(unpert) and deleting them outright (RM).
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= STEERING ======================= -->
+<center><h1>Source Attribution Can Be Steered</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			Finally, we ask whether these representations can be manipulated. Keeping the model frozen, we
+			learn two vectors added to the image span and the caption span, optimized to make the model report information from 
+			the <i>wrong</i> source. In early and middle layers this drives selectivity close to &minus;1: the
+			model reliably reports information from the modality it was not asked about. Marker positions are the more effective
+			handle, and the effect fades in later layers.
+		</td>
+	</tr>
+</table>
+<table align=center width=100%>
+	<tr>
+		<td align=center>
+			<a class="zoom" href="static/images/train_vec_exp.png"><img style="width:850px" src="static/images/train_vec_exp.png" alt="Diagram of the learned-vector intervention: two trainable vectors are added either at the symbolic marker token positions or across the modality-specific content token positions of the image and caption spans."/></a>
+		</td>
+	</tr>
+</table>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			The learned-vector intervention. Two trainable vectors, &delta;<sub>1</sub> and
+			&delta;<sub>2</sub>, are added either at the symbolic marker positions (<i>marker deltas</i>) or
+			across the modality-specific content tokens (<i>content deltas</i>), applied respectively to the
+			image span and the caption span.
+		</td>
+	</tr>
+</table>
+
+<div class="tabrow figgap" role="tablist" aria-label="Model for intervention results">
+	<button class="tab" role="tab" id="st-qwen-tab"     aria-controls="st-qwen"     aria-selected="true">Qwen2.5-VL-32B</button>
+	<button class="tab" role="tab" id="st-gemma-tab"    aria-controls="st-gemma"    aria-selected="false">Gemma-3-12B</button>
+	<button class="tab" role="tab" id="st-internvl-tab" aria-controls="st-internvl" aria-selected="false">InternVL3-14B</button>
+</div>
+
+<div id="st-qwen" class="panel" role="tabpanel" aria-labelledby="st-qwen-tab">
+	<table align=center width=100%>
+		<tr><td align=center>
+			<a class="zoom" href="static/images/flip_rate.png"><img style="width:850px" src="static/images/flip_rate.png" alt="Selectivity of Qwen2.5-VL-32B after learned interventions at different relative layer depths, dropping near -1 in early and middle layers."/></a>
+		</td></tr>
+	</table>
+	<table align=center width=850px>
+		<tr><td class="cap">
+			Qwen2.5-VL-32B. Dashed and dotted lines mark the uninterventioned model and the token-level
+			marker-swap condition.
+		</td></tr>
+	</table>
+</div>
+
+<div id="st-gemma" class="panel" role="tabpanel" aria-labelledby="st-gemma-tab" hidden>
+	<table align=center width=100%>
+		<tr><td align=center>
+			<a class="zoom" href="static/images/exploit_gemma.png"><img style="width:850px" src="static/images/exploit_gemma.png" alt="The same intervention sweep for Gemma-3-12B."/></a>
+		</td></tr>
+	</table>
+	<table align=center width=850px>
+		<tr><td class="cap">
+			Gemma-3-12B. The effect is concentrated in the early layers.
+		</td></tr>
+	</table>
+</div>
+
+<div id="st-internvl" class="panel" role="tabpanel" aria-labelledby="st-internvl-tab" hidden>
+	<table align=center width=100%>
+		<tr><td align=center>
+			<a class="zoom" href="static/images/exploit_internvl.png"><img style="width:850px" src="static/images/exploit_internvl.png" alt="The same intervention sweep for InternVL3-14B."/></a>
+		</td></tr>
+	</table>
+	<table align=center width=850px>
+		<tr><td class="cap">
+			InternVL3-14B. Both intervention types push selectivity far below zero across a broad range of depths.
+		</td></tr>
+	</table>
+</div>
+
+<table align=center width=850px>
+	<tr>
+		<td class="desc" style="padding-top:14px">
+			The marker and content positions carry source-modality information that is causally
+			accessible and adversarially exploitable.
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= WHY ======================= -->
+<center><h1>Why It Matters</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="desc">
+			As models become more multimodal and agentic, not every source a user refers to will come with an explicit tag. 
+			People ask about “yesterday's meeting” or “the discussion about dinner plans”  &mdash; micro-modalities that are 
+			distinct enough for humans to name, but not necessarily distinct enough for models to identify from distributional cues alone. 
+			When those semantic cues are weak, our results show that source binding becomes increasingly dependent on explicit markers, 
+			creating a potential point of fragility for reliable source attribution.
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= PAPER & BIBTEX ======================= -->
+<center><h1>Paper and Bibtex</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td>
+			<a href="https://arxiv.org/abs/2604.22038"><img class="layered-paper-big" style="width:180px" src="static/images/paper_thumbnail.png" alt="First page of the paper"/></a>
+		</td>
+		<td style="vertical-align: top; padding-left:20px">
+			<span style="font-size:18px"><b>Source-Modality Monitoring in Vision-Language Models</b></span><br>
+			Etha Tianze Hua, Tian Yun, Ellie Pavlick<br>
+			<i>Conference on Language Modeling (COLM)</i>, 2026<br><br>
+			<a href="https://arxiv.org/abs/2604.22038">[arXiv]</a>&nbsp;&nbsp;
+			<a href="https://github.com/ethahtz/source-modality-monitoring">[Code &amp; Data]</a>
+		</td>
+	</tr>
+</table>
+
+<table align=center width=850px style="margin-top:34px">
+	<tr>
+		<td style="padding-bottom:8px">
+			<span style="font-size:18px"><b>Bibtex</b></span>
+		</td>
+	</tr>
+	<tr>
+		<td class="disclaimerbox" style="font-size:15px; font-family: monospace">
+<pre style="margin:0">@inproceedings{hua2026source,
+  title     = {Source-Modality Monitoring in Vision-Language Models},
+  author    = {Etha Tianze Hua and Tian Yun and Ellie Pavlick},
+  booktitle = {Third Conference on Language Modeling},
+  year      = {2026}
+}</pre>
+		</td>
+	</tr>
+</table>
+
+<br>
+<hr>
+
+<!-- ======================= ACKNOWLEDGEMENTS ======================= -->
+<center><h1>Acknowledgements</h1></center>
+<table align=center width=850px>
+	<tr>
+		<td class="cap">
+			We are very grateful to the members of the Language Understanding and Representation (LUNAR) Lab
+			at Brown University &mdash; especially Zhuonan Yang and Jennifer Meng Lu &mdash; as well as other
+			members of the Brown Superlab for their valuable feedback on this paper. Etha Tianze Hua would
+			like to thank Selina Liang for her support during this work. This project was in part supported by
+			Schmidt Sciences Grant #GR5300958 and the NSF AI Research Institute on Interaction for AI
+			Assistants Grant #GR5300593. Ellie Pavlick is a paid consultant for Google DeepMind. The content
+			of this article does not necessarily reflect the views of the US Government or of Google, and no
+			official endorsement of this work should be inferred.
+			<br><br>
+			This template was originally made by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and
+			<a href="https://richzhang.github.io/">Richard Zhang</a> for a
+			<a href="https://richzhang.github.io/colorization/">colorful ECCV project</a>; the code is
+			available <a href="https://github.com/richzhang/webpage-template">here</a>.
+		</td>
+	</tr>
+</table>
+
+<br><br>
+
+<script>
+// Model switchers: show one figure panel per group.
+document.querySelectorAll('[role="tablist"]').forEach(function (list) {
+	var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+	function select(tab) {
+		tabs.forEach(function (t) {
+			var on = t === tab;
+			t.setAttribute('aria-selected', on ? 'true' : 'false');
+			var panel = document.getElementById(t.getAttribute('aria-controls'));
+			if (panel) panel.hidden = !on;
+		});
+	}
+	tabs.forEach(function (tab, i) {
+		tab.addEventListener('click', function () { select(tab); });
+		tab.addEventListener('keydown', function (e) {
+			var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+			if (!d) return;
+			e.preventDefault();
+			var next = tabs[(i + d + tabs.length) % tabs.length];
+			next.focus();
+			select(next);
+		});
+	});
+});
+</script>
+</body>
+</html>
