@@ -360,11 +360,21 @@ header h1 {
 }
 
 .socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   color: var(--fg-muted);
 }
 
 .socials a:hover {
   color: var(--fg-strong);
+}
+
+.socials .icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  fill: currentColor;
 }
 
 /* rule 110, drawn into the dead space below the sidebar */
