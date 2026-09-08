@@ -201,6 +201,99 @@ header h1 {
   font-weight: 600;
 }
 
+/* email, set as magazine cut-outs — also keeps it out of reach of scrapers:
+   the address never appears as a contiguous string in the source, and the
+   "@" is injected from CSS rather than living in the markup */
+
+.ransom {
+  display: inline-block;
+  line-height: 1;
+  padding: 3px 0;
+  white-space: nowrap;
+}
+
+.ransom span {
+  display: inline-block;
+  padding: 2px 3px;
+  margin: 0 0.5px;
+  vertical-align: middle;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  background: #fff;
+  color: var(--fg-strong);
+  box-shadow: 0 1px 2px rgba(24, 24, 27, 0.16);
+}
+
+.ransom .at::before {
+  content: "@";
+}
+
+/* the underscore sits on the baseline; keep it clear of the cut edges */
+.ransom .us {
+  clip-path: none;
+  padding-bottom: 4px;
+}
+
+.ransom .r1 {
+  font-family: Georgia, "Times New Roman", serif;
+  transform: rotate(-4deg);
+  clip-path: polygon(0 5%, 100% 0, 97% 100%, 2% 95%);
+}
+
+.ransom .r2 {
+  font-family: "Arial Black", Impact, sans-serif;
+  background: var(--fg-strong);
+  color: #fff;
+  font-size: 12px;
+  transform: rotate(3deg);
+}
+
+.ransom .r3 {
+  font-family: "Courier New", Courier, monospace;
+  background: #f2eee2;
+  transform: rotate(-2deg);
+  clip-path: polygon(2% 0, 100% 4%, 98% 96%, 0 100%);
+}
+
+.ransom .r4 {
+  font-family: "Times New Roman", Times, serif;
+  background: var(--accent);
+  color: #fff;
+  font-style: italic;
+  transform: rotate(5deg);
+}
+
+.ransom .r5 {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 11.5px;
+  transform: rotate(2deg);
+  clip-path: polygon(0 0, 98% 5%, 100% 100%, 3% 96%);
+}
+
+.ransom .r6 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow", sans-serif;
+  background: #e8e8e8;
+  font-size: 14px;
+  transform: rotate(-5deg);
+}
+
+.ransom .r7 {
+  font-family: var(--sans);
+  background: var(--fg-strong);
+  color: #fff;
+  font-weight: 800;
+  transform: rotate(-1deg);
+  clip-path: polygon(2% 4%, 100% 0, 97% 97%, 0 100%);
+}
+
+.ransom .r8 {
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+  background: #f2eee2;
+  color: var(--accent);
+  transform: rotate(4deg);
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
