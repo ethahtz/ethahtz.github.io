@@ -153,15 +153,37 @@ th {
   display: grid;
   grid-template-columns: var(--sidebar) minmax(0, 1fr);
   gap: var(--column-gap);
-  align-items: start;
+}
+
+/* the automaton fills the sidebar column for the full height of the page,
+   with the sidebar itself sticking over it as an opaque card */
+.rule110-col {
+  grid-area: 1 / 1;
+  min-height: 0;
 }
 
 header {
-  position: sticky;
-  top: 76px;
+  grid-area: 1 / 1;
+  align-self: start;
+  position: relative;
+  background: var(--bg);
+  padding-bottom: 18px;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 30px;
+  background: linear-gradient(to bottom, var(--bg), transparent);
+  pointer-events: none;
 }
 
 section {
+  grid-area: 1 / 2;
+  align-self: start;
   min-width: 0;
 }
 
@@ -343,6 +365,19 @@ header h1 {
 
 .socials a:hover {
   color: var(--fg-strong);
+}
+
+/* rule 110, drawn into the dead space below the sidebar */
+
+#rule110 {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--accent);
+  opacity: 0.35;
+  -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 92%, transparent 100%);
+  pointer-events: none;
 }
 
 /* ---------------------------------------------------------------- content */
@@ -578,6 +613,25 @@ header h1 {
     display: flex;
     flex-wrap: wrap;
     gap: 8px 18px;
+  }
+
+  /* no sidebar column to fill once the layout stacks */
+  .rule110-col {
+    display: none;
+  }
+
+  header,
+  section {
+    grid-area: auto;
+  }
+
+  header {
+    padding-bottom: 0;
+    background: none;
+  }
+
+  header::after {
+    display: none;
   }
 
   section {
