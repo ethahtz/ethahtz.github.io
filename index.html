@@ -2,126 +2,158 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Home | Etha Tianze Hua</title>
 
+    <link rel="preload" href="fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="./resources/exmachina2.png">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>Etha Tianze Hua</h1>
+        <div class="identity">
+          <img class="avatar" src="./resources/profile-pic.jpeg" alt="Line-drawing portrait of Etha Tianze Hua">
+          <div>
+            <h1>Etha Tianze Hua</h1>
+            <p class="role">2nd-year CS PhD Student <br> Brown University</p>
+          </div>
+        </div>
 
-        <p>2nd-year CS PhD Student <br> Brown University </p>
+        <p class="meta">
+          Currently based in <b>Providence, Rhode Island</b><br>
+          t&#8203;i&#8203;a&#8203;n&#8203;z&#8203;e&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;_&#8203;h&#8203;u&#8203;a&#8203;[&#8203;A&#8203;T&#8203;]&#8203;b&#8203;r&#8203;o&#8203;w&#8203;n&#8203;.&#8203;e&#8203;d&#8203;u&#8203;
+        </p>
 
-        <img src="./resources/pic3.jpg" width="100%" alt="Logo">
+        <nav class="primary-nav">
+          <a class="pill" href="./index.html" aria-current="page">About</a>
+          <a class="pill" href="./resources/cv.pdf">CV</a>
+        </nav>
 
-        <p style="font-size:12px"><br>Currently based in <b>Providence, Rhode Island</b><br> 
-        
-        𝗍&#8203;i&#8203;a&#8203;n&#8203;z&#8203;e&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;_&#8203;h&#8203;u&#8203;a&#8203;[&#8203;A&#8203;T&#8203;]&#8203;b&#8203;r&#8203;o&#8203;w&#8203;n&#8203;.&#8203;e&#8203;d&#8203;u&#8203; <br> </p>
-          
-        <p style="font-size:16px"><b><a href="./index.html">About</a></b></p>
-        <p style="font-size:16px"><b><a href="./resources/cv.pdf">CV</a></b></p>
-  
-        <!-- <p style="font-size:16px"><b><a href="./publications.html">Publications</a></b></p> -->
-
-        <!-- <p style="font-size:16px"><b><a href="./resources/etha_tianze_hua.pdf">CV</a></b></p> -->
-
-        <a href="https://twitter.com/EthaHua">Twitter</a> | <a href="https://github.com/ethahtz">GitHub</a> | <a href="https://scholar.google.com/citations?user=Au_icjEAAAAJ&hl=en&oi=ao">Google Scholar</a> | <a href="https://www.semanticscholar.org/author/Tianze-Hua/2297668268">Semantic Scholar</a>
-
+        <div class="socials">
+          <a href="https://twitter.com/EthaHua">Twitter</a>
+          <a href="https://github.com/ethahtz">GitHub</a>
+          <a href="https://scholar.google.com/citations?user=Au_icjEAAAAJ&hl=en&oi=ao">Google Scholar</a>
+          <a href="https://www.semanticscholar.org/author/Tianze-Hua/2297668268">Semantic Scholar</a>
+        </div>
 
         <script src="lindenmayer.browser.js"></script>
-
-        <!-- </script> -->
 
       </header>
 
       <section>
           <!-- Page Content starts here -->
 
-
-          <!-- <h3>Research Interests</h3> -->
-
-          <p>
+          <p class="lead">
             I am a PhD student in Computer Science at Brown University, where I am fortunate to be advised by Professor <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a>.
 
             <br><br>
 
-            My research focuses on <b>interpretability</b> and <b>human-model comparison</b>. 
-            I believe for us to attribute cognitive properties (m knows p, m understands English, m is conscious, and etc.) to computational models, two components are required: 
+            My research focuses on <b>interpretability</b> and <b>human-model comparison</b>.
+            I believe for us to attribute cognitive properties (m knows p, m understands English, m is conscious, and etc.) to computational models, two components are required:
             (a) operationalized definitions of those cognitive properties, and (b) sufficient knowledge of the inner workings of the computational models of interest.
-            While the first component has been the subject of lengthy debates in philosophy of mind / epistemology and may remain unresolved, 
-            the second component offers a direction, interpretability, where concrete answers are achievable. 
-            
+            While the first component has been the subject of lengthy debates in philosophy of mind / epistemology and may remain unresolved,
+            the second component offers a direction, interpretability, where concrete answers are achievable.
+
           </p>
 
           <hr>
 
-          <h3>Updates</h3>
+          <h2 class="section-label">Updates</h2>
 
-          <ul>
-            <li>August 2026: Our work "<a href="https://arxiv.org/abs/2609.00293">Slow to See, Slow to Suppress: Understanding the Effects of Modality in Context-Memory Conflicts</a>" got accepted into Findings of EMNLP 2026!</li>
-            <li>July 2026: Our work "<a href="https://arxiv.org/abs/2604.22038">Source Modality Monitoring in Vision-Language Models</a>" got accepted into <a href="https://colm.eventhosts.cc/">COLM 2026</a>!</li>
-            <li>May 2026: Started my summer internship at <a href="https://kensho.com/">Kensho</a>'s R&D team, working on evaluating LLM agents.</li>
-            <li>Aug 2025: We presented our work "<a href="https://arxiv.org/abs/2507.01790">How Do Vision-Language Models Process Conflicting Information Across Modalities?</a>" at <a href="https://nemiconf.github.io/summer25/">NEMI'25</a> in Boston, MA.</li>
-            <li>May 2025: I will be officially joining the <a href="https://lunar.cs.brown.edu/">LUNAR</a> lab as a PhD student starting this Fall!</li>
-            <li>June 2024: We presented our NAACL'24 work in Mexico City, Mexico.</li>
-            <li>March 2024: Our work "<a href="https://aclanthology.org/2024.findings-naacl.103/">mOthello: When Do Cross-Lingual Representation Alignment and Cross-Lingual Transfer Emerge in Multilingual Models?</a>" got accepted into Findings of NAACL 2024!</li>
-            <li>August 2023: I attended the <a href="https://cmmrs.mpi-sws.org/">Cornell, Maryland, Max Planck Pre-doctoral Research School 2023</a> in Saarbrücken, Germany.</li>
+          <ul class="updates">
+            <li><span class="date">Aug 2026</span><span>Our work "<a href="https://arxiv.org/abs/2609.00293">Slow to See, Slow to Suppress: Understanding the Effects of Modality in Context-Memory Conflicts</a>" got accepted into Findings of EMNLP 2026!</span></li>
+            <li><span class="date">Jul 2026</span><span>Our work "<a href="https://arxiv.org/abs/2604.22038">Source Modality Monitoring in Vision-Language Models</a>" got accepted into <a href="https://colm.eventhosts.cc/">COLM 2026</a>!</span></li>
+            <li><span class="date">May 2026</span><span>Started my summer internship at <a href="https://kensho.com/">Kensho</a>'s R&D team, working on evaluating LLM agents.</span></li>
+            <li><span class="date">Aug 2025</span><span>We presented our work "<a href="https://arxiv.org/abs/2507.01790">How Do Vision-Language Models Process Conflicting Information Across Modalities?</a>" at <a href="https://nemiconf.github.io/summer25/">NEMI'25</a> in Boston, MA.</span></li>
+            <li><span class="date">May 2025</span><span>I will be officially joining the <a href="https://lunar.cs.brown.edu/">LUNAR</a> lab as a PhD student starting this Fall!</span></li>
+            <li><span class="date">Jun 2024</span><span>We presented our NAACL'24 work in Mexico City, Mexico.</span></li>
+            <li><span class="date">Mar 2024</span><span>Our work "<a href="https://aclanthology.org/2024.findings-naacl.103/">mOthello: When Do Cross-Lingual Representation Alignment and Cross-Lingual Transfer Emerge in Multilingual Models?</a>" got accepted into Findings of NAACL 2024!</span></li>
+            <li><span class="date">Aug 2023</span><span>I attended the <a href="https://cmmrs.mpi-sws.org/">Cornell, Maryland, Max Planck Pre-doctoral Research School 2023</a> in Saarbrücken, Germany.</span></li>
           </ul>
 
           <hr>
 
-          <h3>Publications</h3>
+          <h2 class="section-label">Publications</h2>
 
-          <ul>
-            <li>
-              <i><a href="https://arxiv.org/abs/2609.00293">Slow to See, Slow to Suppress: Understanding the Effects of Modality in Context-Memory Conflicts</a></i><br>
-              <a href="https://aparaselli.github.io/">Athulith Paraselli</a>, <b>Tianze Hua</b>, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a> <br>
-              Findings of EMNLP 2026 [<a href="https://github.com/aparaselli/slow-to-see-slow-to-suppress">Code</a>]
+          <ul class="pubs">
+            <li class="pub">
+              <a href="https://arxiv.org/abs/2609.00293" tabindex="-1" aria-hidden="true">
+                <img class="pub-thumb" src="./resources/thumbs/slow-to-see.jpg" alt="" loading="lazy">
+              </a>
+              <div>
+                <p class="pub-title"><a href="https://arxiv.org/abs/2609.00293">Slow to See, Slow to Suppress: Understanding the Effects of Modality in Context-Memory Conflicts</a></p>
+                <p class="pub-authors"><a href="https://aparaselli.github.io/">Athulith Paraselli</a>, <b>Tianze Hua</b>, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a></p>
+                <div class="pub-meta">
+                  <span class="venue peer-reviewed">Findings of EMNLP 2026</span>
+                  <a class="tag" href="https://github.com/aparaselli/slow-to-see-slow-to-suppress">Code</a>
+                </div>
+              </div>
             </li>
-            <li>
-              <i><a href="https://arxiv.org/abs/2604.22038">Source Modality Monitoring in Vision-Language Models</a></i><br>
-              <b>Tianze Hua</b>, <a href="https://tttyuntian.github.io/">Tian Yun</a>, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a> <br>
-              COLM 2026 [<a href="https://github.com/ethahtz/source-modality-monitoring">Code</a>] [<a href="https://ethahtz.github.io/project-webpages/source-modality-monitoring/">Project Page</a>]
+            <li class="pub">
+              <a href="https://arxiv.org/abs/2604.22038" tabindex="-1" aria-hidden="true">
+                <img class="pub-thumb" src="./resources/thumbs/source-modality-monitoring.jpg" alt="" loading="lazy">
+              </a>
+              <div>
+                <p class="pub-title"><a href="https://arxiv.org/abs/2604.22038">Source Modality Monitoring in Vision-Language Models</a></p>
+                <p class="pub-authors"><b>Tianze Hua</b>, <a href="https://tttyuntian.github.io/">Tian Yun</a>, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a></p>
+                <div class="pub-meta">
+                  <span class="venue peer-reviewed">COLM 2026</span>
+                  <a class="tag" href="https://github.com/ethahtz/source-modality-monitoring">Code</a>
+                  <a class="tag" href="https://ethahtz.github.io/project-webpages/source-modality-monitoring/">Project Page</a>
+                </div>
+              </div>
             </li>
-            <li>
-              <i><a href="https://arxiv.org/abs/2507.01790">How Do Vision-Language Models Process Conflicting Information Across Modalities?</a></i><br>
-              <b>Tianze Hua*</b>, <a href="https://tttyuntian.github.io/">Tian Yun</a>*, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a> <br>
-              ArXiv Preprint [<a href="https://github.com/ethahtz/vlm_conflicting_info_processing">Code</a>] [<a href="https://vlm-conflicting-information-processing.github.io/">Project Page</a>]
+            <li class="pub">
+              <a href="https://arxiv.org/abs/2507.01790" tabindex="-1" aria-hidden="true">
+                <img class="pub-thumb" src="./resources/thumbs/vlm-conflicting-info.jpg" alt="" loading="lazy">
+              </a>
+              <div>
+                <p class="pub-title"><a href="https://arxiv.org/abs/2507.01790">How Do Vision-Language Models Process Conflicting Information Across Modalities?</a></p>
+                <p class="pub-authors"><b>Tianze Hua*</b>, <a href="https://tttyuntian.github.io/">Tian Yun</a>*, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a></p>
+                <div class="pub-meta">
+                  <span class="venue">ArXiv Preprint</span>
+                  <a class="tag" href="https://github.com/ethahtz/vlm_conflicting_info_processing">Code</a>
+                  <a class="tag" href="https://vlm-conflicting-information-processing.github.io/">Project Page</a>
+                </div>
+              </div>
             </li>
-            <li>
-              <i><a href="https://aclanthology.org/2024.findings-naacl.103/">mOthello: When Do Cross-Lingual Representation Alignment and Cross-Lingual Transfer Emerge in Multilingual Models?</a></i><br>
-              <b>Tianze Hua*</b>, <a href="https://tttyuntian.github.io/">Tian Yun</a>*, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a> <br>
-              Findings of NAACL 2024 [<a href="https://github.com/ethahtz/multilingual_othello">Code</a>] [<a href="https://multilingual-othello.github.io/">Project Page</a>]
+            <li class="pub">
+              <a href="https://aclanthology.org/2024.findings-naacl.103/" tabindex="-1" aria-hidden="true">
+                <img class="pub-thumb" src="./resources/thumbs/mothello.jpg" alt="" loading="lazy">
+              </a>
+              <div>
+                <p class="pub-title"><a href="https://aclanthology.org/2024.findings-naacl.103/">mOthello: When Do Cross-Lingual Representation Alignment and Cross-Lingual Transfer Emerge in Multilingual Models?</a></p>
+                <p class="pub-authors"><b>Tianze Hua*</b>, <a href="https://tttyuntian.github.io/">Tian Yun</a>*, and <a href="https://cs.brown.edu/people/epavlick/">Ellie Pavlick</a></p>
+                <div class="pub-meta">
+                  <span class="venue peer-reviewed">Findings of NAACL 2024</span>
+                  <a class="tag" href="https://github.com/ethahtz/multilingual_othello">Code</a>
+                  <a class="tag" href="https://multilingual-othello.github.io/">Project Page</a>
+                </div>
+              </div>
             </li>
           </ul>
 
           <hr>
 
-          <h3>Education</h3>
-            <dl>
+          <h2 class="section-label">Education</h2>
+            <dl class="education">
 
-              <dt>2025-</dt>
-              <dd>Ph.D. Computer Science, <a href="https://www.brown.edu/">Brown University</a> <br> </dd>
+              <dt>2025&ndash;</dt>
+              <dd><b>Ph.D. Computer Science</b>, <a href="https://www.brown.edu/">Brown University</a></dd>
 
-              <dt>2023-2025</dt>
-              <dd>Sc.M. Computer Science, <a href="https://www.brown.edu/">Brown University</a> <br> </dd>
+              <dt>2023&ndash;2025</dt>
+              <dd><b>Sc.M. Computer Science</b>, <a href="https://www.brown.edu/">Brown University</a></dd>
 
-              <dt>2019-2023</dt>  
-              <dd>B.S. Computer Science &amp; Philosophy, <a href="https://www.tufts.edu/">Tufts University </a> <br> </dd>
-            
+              <dt>2019&ndash;2023</dt>
+              <dd><b>B.S. Computer Science &amp; Philosophy</b>, <a href="https://www.tufts.edu/">Tufts University</a></dd>
+
             </dl>
-          
+
           <!-- <hr>
 
-            <h3>some other cool stuffs</h3>
+            <h2 class="section-label">some other cool stuffs</h2>
 
             <p>> A tree defined by a <a href="https://en.wikipedia.org/wiki/L-system">Lindenmayer system</a>.</p>
 
@@ -134,9 +166,6 @@
 
           <!-- Page Content ends here   -->
       </section>
-      <!-- <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer> -->
     </div>
     <script src="javascripts/scale.fix.js"></script>
   </body>
