@@ -392,6 +392,24 @@ header h1 {
 
 /* ---------------------------------------------------------------- content */
 
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  margin: 0 0 22px;
+}
+
+.section-heading .section-label {
+  margin: 0;
+}
+
+.section-heading > a {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
 .section-label {
   font-size: 12px;
   font-weight: 600;
